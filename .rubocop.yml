@@ -1,6 +1,5 @@
 ---
 require:
-  - rubocop-rails
   - rubocop-performance
 AllCops:
   NewCops: enable
@@ -21,8 +20,6 @@ AllCops:
     - 'spec/spec_helper.rb'
     - 'node_modules/**/*'
     - 'spec/rails_helper.rb'
-Rails:
-  Enabled: true
 Style/GuardClause:
   MinBodyLength: 1
   Enabled: false
@@ -37,8 +34,6 @@ Style/Alias:
 Style/Documentation:
   Enabled: false
 Lint/UnusedMethodArgument:
-  Enabled: false
-Rails/HasAndBelongsToMany:
   Enabled: false
 Metrics/ModuleLength:
   Enabled: false
@@ -69,9 +64,6 @@ Layout/HashAlignment:
   EnforcedColonStyle:
     - key
     - table
-
-Rails/ActionFilter:
-  Enabled: false
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 Style/FrozenStringLiteralComment:
@@ -94,9 +86,6 @@ Style/NilComparison:
 # Ruby 3
 Style/FrozenStringLiteralComment:
   Enabled: false
-# Rails 5 -> im Controller/Request Test get :foo, params: {}
-Rails/HttpPositionalArguments:
-  Enabled: false
 # def bla; end
 Style/EmptyMethod:
   Enabled: false
@@ -109,8 +98,6 @@ Metrics/BlockLength:
 Bundler/OrderedGems:
   Enabled: false
 # update_all, update_column
-Rails/SkipsModelValidations:
-  Enabled: false
 # set_ und get_ verbote
 Naming/AccessorMethodName:
   Enabled: false
@@ -130,8 +117,6 @@ Metrics/PerceivedComplexity:
   Enabled: false
 Style/DoubleNegation:
   Enabled: false
-Rails/ApplicationRecord:
-  Enabled: false
 Style/ZeroLengthPredicate:
   Enabled: false
 Style/SafeNavigation:
@@ -149,8 +134,6 @@ Layout/ArgumentAlignment:
 Layout/MultilineMethodCallBraceLayout:
   Enabled: false
 Layout/EmptyLineAfterGuardClause:
-  Enabled: false
-Rails/EnumHash:
   Enabled: false
 Lint/MissingSuper:
   Enabled: false

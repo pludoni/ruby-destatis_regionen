@@ -8,6 +8,12 @@ module Destatis
           all.send(m)
         end
       end
+
+    end
+
+    def self.[](search)
+      all.find { |item| item.gemeinde_name == search } ||
+        all.find { |item| item.gemeinde_name.downcase[search.downcase] }
     end
 
     attr_reader :flaeche, :lat, :lon, :bevoelkerung_km2, :bevoelkerung_insgesamt, :bevoelkerung_m, :bevoelkerung_w

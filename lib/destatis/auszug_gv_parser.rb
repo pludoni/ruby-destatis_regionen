@@ -18,7 +18,8 @@ module Destatis
       Regierungsbezirk.all = rb = items.select { |i| i.is_a?(Regierungsbezirk) }
       Kreis.all = kreise = items.select { |i| i.is_a?(Kreis) }
       Gemeinde.all = items.select { |i| i.is_a?(Gemeinde) }
-      kreise_map = kreise.map { |k| [[k.state_id, k.kreis_id], k] }.to_h
+      Gemeindeverband.all = items.select { |i| i.is_a?(Gemeindeverband) }
+      kreise_map = kreise.map { |k| [[k.state_id, k.regierungsbezirk_id, k.kreis_id], k] }.to_h
       items.each do |item|
         next if item.is_a?(State)
 
@@ -32,7 +33,7 @@ module Destatis
 
         next if item.is_a?(Kreis)
 
-        item.kreis = kreise_map[[item.state_id, item.kreis_id]]
+        item.kreis = kreise_map[[item.state_id, item.regierungsbezirk_id, item.kreis_id]]
       end
     end
 
@@ -48,8 +49,10 @@ module Destatis
                 State
               elsif item[:gemeinde_id].nil? && item[:regierungsbezirk_id] && item[:kreis_id].nil?
                 Regierungsbezirk
-              elsif item[:gemeinde_id].nil?
+              elsif item[:gemeinde_id].nil? && item[:gemeindeverband_id].nil?
                 Kreis
+              elsif item[:gemeinde_id].nil?
+                Gemeindeverband
               else
                 Gemeinde
               end

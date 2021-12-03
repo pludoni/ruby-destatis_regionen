@@ -2,7 +2,7 @@ module Destatis
   class Loader < AuszugGvParser
     def self.save(target = File.join(__dir__, '../../data/regions.json'))
       require 'json'
-      items = State.all + Gemeinde.all + Regierungsbezirk.all + Kreis.all
+      items = State.all + Gemeinde.all + Regierungsbezirk.all + Kreis.all + Gemeindeverband.all
       File.write(
         target,
         items.map(&:as_json).to_json
@@ -23,6 +23,7 @@ module Destatis
                 when 'Destatis::Regierungsbezirk' then Destatis::Regierungsbezirk
                 when 'Destatis::Gemeinde' then Destatis::Gemeinde
                 when 'Destatis::Kreis' then Destatis::Kreis
+                when 'Destatis::Gemeindeverband' then Destatis::Gemeindeverband
                 else
                   ArgumentError.new(item['class'])
                 end

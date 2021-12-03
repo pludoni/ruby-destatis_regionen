@@ -7,18 +7,32 @@ Download "Auszug_GV.xlsx" from here: https://www.destatis.de/DE/Themen/Laender-R
 Parse:
 
 ```ruby
-parser = Destatus::AuszugGvParser.new("./31122020_Auszug_GV.xlsx")
+parser = Destatis::AuszugGvParser.new("./31122020_Auszug_GV.xlsx")
 # might take a couple of seconds
 parser.run
 
 # now you have all state regierungsbezirk kreis and gemeinde:
 
-State.all
-Regierungsbezirk.all
-Kreis.all
-Gemeinde.all
+Destatis::State.all
+Destatis::Regierungsbezirk.all
+Destatis::Kreis.all
+Destatis::Gemeinde.all
 
 # and interlinking
 
-State.first.regierungsbezirke.first.kreise.first.gemeinde.state == State.first
+Destatis::Gemeinde['Rüsselsheim'].kreis.regierungsbezirk.state == Destatis::State['Hessen']
 ```
+
+Afterwards you can serialize to json and load on other program runs with improves loading drastically:
+
+```ruby
+# once
+parser = Destatis::AuszugGvParser.new("./31122020_Auszug_GV.xlsx")
+parser.run
+Destatis::Loader.save(target = 'GEM_PATH/data/regions.json')
+
+
+# on each subsequent run:
+Destatis::Loader.load(source = 'GEM_PATH/data/regions.json')
+```
+
