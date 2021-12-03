@@ -17,9 +17,9 @@ module Destatis
 
     def inspect
       vars = %w[kreis_id state_id regierungsbezirk_id]
-             .select { |k| respond_to?(k) }
-             .map { |v| "#{v}=#{send(v)}" }
-             .join(', ')
+        .select { |k| respond_to?(k) }
+        .map { |v| "#{v}=#{send(v)}" }
+        .join(', ')
       "<#{self.class.name} '#{gemeinde_name}' #{vars}>"
     end
 
@@ -52,7 +52,7 @@ module Destatis
     end
 
     def as_json(_opts = {})
-      (instance_variables - %i[@kreis @state @regierungsbezirk]).map { |key| [key, instance_variable_get(key)] }.to_h.
+      (instance_variables - %i[@kreis @state @regierungsbezirk]).map { |key| [key.to_s.sub(/^@/, ''), instance_variable_get(key)] }.to_h.
         merge("class" => self.class.to_s)
     end
 
